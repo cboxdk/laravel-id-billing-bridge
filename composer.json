@@ -4,7 +4,7 @@
     "description": "Bridges Cbox ID domain events to the Cbox Billing client — meters identity usage (the shared auth.* vocabulary) to billing off the transactional outbox, exactly-once. Compose it in the SaaS; the self-hostable app stays billing-free.",
     "keywords": ["cbox", "identity", "billing", "metering", "bridge", "laravel"],
     "type": "library",
-    "license": "MIT",
+    "license": "proprietary",
     "require": {
         "php": "^8.4",
         "cboxdk/laravel-billing-client": "^0.3",

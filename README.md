@@ -49,4 +49,7 @@ inline at the action site via `BillingClient::reserve()` — not on the event bu
 
 ## License
 
-MIT © Cbox.
+**Commercial / proprietary.** Copyright © Cbox, all rights reserved. This is a
+private, SaaS-internal package — use requires a written commercial agreement with
+Cbox. It is not part of the open, self-hostable Cbox ID; the self-hostable app never
+depends on it. See [LICENSE](LICENSE).
