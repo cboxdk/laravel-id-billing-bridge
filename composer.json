@@ -1,14 +1,21 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
     "name": "cboxdk/laravel-id-billing-bridge",
-    "description": "Bridges Cbox ID domain events to the Cbox Billing client — meters identity usage (the shared auth.* vocabulary) to billing off the transactional outbox, exactly-once. Compose it in the SaaS; the self-hostable app stays billing-free.",
-    "keywords": ["cbox", "identity", "billing", "metering", "bridge", "laravel"],
+    "description": "Bridges Cbox ID domain events to the Cbox Billing client \u2014 meters identity usage (the shared auth.* vocabulary) to billing off the transactional outbox, exactly-once. Compose it in the SaaS; the self-hostable app stays billing-free.",
+    "keywords": [
+        "cbox",
+        "identity",
+        "billing",
+        "metering",
+        "bridge",
+        "laravel"
+    ],
     "type": "library",
     "license": "proprietary",
     "require": {
         "php": "^8.4",
         "cboxdk/laravel-billing-client": "^0.3",
-        "cboxdk/laravel-id": "^0.17.1",
+        "cboxdk/laravel-id": "^0.19",
         "illuminate/contracts": "^12.0 || ^13.0",
         "illuminate/database": "^12.0 || ^13.0",
         "illuminate/support": "^12.0 || ^13.0"
@@ -35,7 +42,13 @@
         "test": "pest",
         "license-check": "@php bin/check-licenses.php",
         "sbom": "@php bin/generate-sbom.php",
-        "qa": ["@lint", "@analyse", "@test", "@license-check", "@composer audit"]
+        "qa": [
+            "@lint",
+            "@analyse",
+            "@test",
+            "@license-check",
+            "@composer audit"
+        ]
     },
     "extra": {
         "laravel": {
