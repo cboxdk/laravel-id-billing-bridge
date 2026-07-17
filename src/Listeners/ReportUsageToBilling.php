@@ -29,20 +29,37 @@ final class ReportUsageToBilling
 
     public function handle(EventDelivered $delivered): void
     {
-        $metric = EventMetricMap::for($delivered->event->type);
+        $event = $delivered->event;
 
-        if ($metric === null) {
-            return;
-        }
-
-        $organizationId = $delivered->event->organization_id;
+        $organizationId = $event->organization_id;
 
         if (! is_string($organizationId) || $organizationId === '') {
             return;
         }
 
+        // A `usage.reconciled` correction carries its own metric + unit count (the
+        // reconciler's drift), so billing's own store converges on ground truth too.
+        // A normal event maps to a metric via the shared vocabulary and counts as one.
+        if ($event->type === 'usage.reconciled') {
+            $metric = is_string($event->payload['metric'] ?? null) ? $event->payload['metric'] : null;
+            $units = is_int($event->payload['units'] ?? null) ? $event->payload['units'] : 0;
+
+            if ($metric === null || $units <= 0) {
+                return;
+            }
+        } else {
+            $mapped = EventMetricMap::for($event->type);
+
+            if ($mapped === null) {
+                return;
+            }
+
+            $metric = $mapped->value;
+            $units = 1;
+        }
+
         $fresh = DB::table('billing_bridge_reported_events')->insertOrIgnore([
-            'event_id' => $delivered->event->id,
+            'event_id' => $event->id,
             'created_at' => now(),
         ]);
 
@@ -50,6 +67,6 @@ final class ReportUsageToBilling
             return;
         }
 
-        $this->usage->record($organizationId, $metric->value, 1);
+        $this->usage->record($organizationId, $metric, $units);
     }
 }

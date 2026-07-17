@@ -66,3 +66,18 @@ it('bills the seat and directory dimensions (member_removed, directory provision
         ->and($this->buffer->cumulative('org_a', 'auth.member_removed'))->toBe(1)
         ->and($this->buffer->cumulative('org_a', 'auth.directory_user'))->toBe(1);
 });
+
+it('applies a usage.reconciled correction with its own metric and unit count', function (): void {
+    $event = new Event([
+        'id' => 'evt_rec',
+        'type' => 'usage.reconciled',
+        'organization_id' => 'org_a',
+        'payload' => ['dimension' => 'membership', 'metric' => 'auth.member_added', 'units' => 4],
+    ]);
+
+    app(ReportUsageToBilling::class)->handle(new EventDelivered($event));
+
+    // The drift delta (4) reaches billing under the reconciled metric — so billing's
+    // own store converges on ground truth, not just the local meter.
+    expect($this->buffer->cumulative('org_a', 'auth.member_added'))->toBe(4);
+});
