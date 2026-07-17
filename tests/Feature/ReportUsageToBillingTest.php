@@ -55,3 +55,14 @@ it('maps distinct events to their billing meters', function (): void {
     expect($this->buffer->cumulative('org_a', 'auth.login'))->toBe(1)
         ->and($this->buffer->cumulative('org_a', 'auth.member_added'))->toBe(1);
 });
+
+it('bills the seat and directory dimensions (member_removed, directory provisioning)', function (): void {
+    $listener = app(ReportUsageToBilling::class);
+    $listener->handle(deliver('e10', 'organization.member_added', 'org_a'));
+    $listener->handle(deliver('e11', 'organization.member_removed', 'org_a'));
+    $listener->handle(deliver('e12', 'directory.user.provisioned', 'org_a'));
+
+    expect($this->buffer->cumulative('org_a', 'auth.member_added'))->toBe(1)
+        ->and($this->buffer->cumulative('org_a', 'auth.member_removed'))->toBe(1)
+        ->and($this->buffer->cumulative('org_a', 'auth.directory_user'))->toBe(1);
+});
