@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\DB;
  *    into `billing_bridge_reported_events` keyed on the event id lets only the first
  *    delivery through.
  */
-final class ReportUsageToBilling
+class ReportUsageToBilling
 {
     public function __construct(private readonly UsageBuffer $usage) {}
 

@@ -15,7 +15,7 @@ use Illuminate\Support\ServiceProvider;
  * deployment that embeds the billing client (the SaaS); the self-hostable app never
  * depends on billing.
  */
-final class BillingBridgeServiceProvider extends ServiceProvider
+class BillingBridgeServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
