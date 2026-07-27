@@ -5,9 +5,11 @@ domain events to the [Cbox Billing client](https://github.com/cboxdk/laravel-bil
 so identity usage is metered to billing, off the transactional outbox, **exactly-once**.
 
 It exists so the two stay cleanly separated: **Cbox ID meters locally for analytics**
-(works self-hosted, no billing), **billing meters + gates for the SaaS**, and this
-small package is the only thing that depends on *both*. Compose it in the SaaS; the
-self-hostable app never depends on the billing client.
+(works with no billing at all), **a billing service meters and gates where you bill**,
+and this small package is the only thing that depends on *both*.
+
+**Optional by design.** Install it only where you bill someone; Cbox ID itself never
+depends on the billing client, and is free to self-host with no limits.
 
 ## How it works
 
@@ -49,7 +51,4 @@ inline at the action site via `BillingClient::reserve()` — not on the event bu
 
 ## License
 
-**Commercial / proprietary.** Copyright © Cbox, all rights reserved. This is a
-private, SaaS-internal package — use requires a written commercial agreement with
-Cbox. It is not part of the open, self-hostable Cbox ID; the self-hostable app never
-depends on it. See [LICENSE](LICENSE).
+**MIT.** See [LICENSE](LICENSE).
