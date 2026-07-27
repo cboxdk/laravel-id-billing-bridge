@@ -1,17 +1,17 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
     "name": "cboxdk/laravel-id-billing-bridge",
-    "description": "Bridges Cbox ID domain events to the Cbox Billing client \u2014 meters identity usage (the shared auth.* vocabulary) to billing off the transactional outbox, exactly-once. Compose it in the SaaS; the self-hostable app stays billing-free.",
+    "description": "Meters Cbox ID identity usage to a billing service — reads the shared auth.* vocabulary off the transactional outbox and reports it exactly once. Optional: install it only where you actually bill.",
     "keywords": [
         "cbox",
         "identity",
         "billing",
         "metering",
-        "bridge",
+        "usage",
         "laravel"
     ],
     "type": "library",
-    "license": "proprietary",
+    "license": "MIT",
     "require": {
         "php": "^8.4",
         "cboxdk/laravel-billing-client": "^0.3",
