@@ -1,0 +1,9 @@
+{
+  "upstream_head": "f1d0761f36a8380474b370d768cfa63fbbe6b8be",
+  "upstream_branch": "main",
+  "target_version": "0.3.0",
+  "status": "unpublished candidate based on actual upstream history",
+  "source_manifest": "evidence/laravel-id-billing-bridge-final-source-hashes.json",
+  "publication_parent": "f1d0761f36a8380474b370d768cfa63fbbe6b8be",
+  "restored_public_files": []
+}
